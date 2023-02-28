@@ -1,8 +1,16 @@
 import React from "react";
+import Tilt from 'react-parallax-tilt';
+import "./logo.css"
+import logo from "./logo.png"
 
 const Logo = () => {
   return (
-    <div></div>
+    <Tilt className="tiltContainer">
+      <img src={logo} alt="logo" />
+    </Tilt>
   )
 }
 export default Logo
+
+
+

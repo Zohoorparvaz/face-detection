@@ -1,0 +1,10 @@
+.tiltContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+img {
+  height: 125px;
+  width: 125px;
+  margin-left: 50px;
+}

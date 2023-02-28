@@ -3,7 +3,7 @@ import "./navigationBar.css"
 
 const NavigationBar = () => {
   return (
-    <div className="bodyContainer">
+    <div className="navContainer">
       <p>Sign out</p>
     </div>
   )
