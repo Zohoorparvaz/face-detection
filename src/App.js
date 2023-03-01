@@ -23,7 +23,7 @@ function App() {
       <Register />
       {/* Replace type with these to change BG 
       "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square" "tadpole" "fountain" "random" "custom"*/}
-      <ParticlesBg color="#ffffff" num={10} type="cobweb" bg={true} />
+      <ParticlesBg color="#ffffff" num={500} type="cobweb" bg={true} />
     </div>
   );
 }
