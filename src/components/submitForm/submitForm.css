@@ -1,0 +1,31 @@
+.submitFormContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50vw;
+  text-align: center;
+  margin-left: 25%;
+  justify-content: center;
+}
+
+.row1,
+.row2 {
+  display: flex;
+  width: 100%;
+}
+
+.row1 p {
+  width: 100%;
+}
+
+.row2 input {
+  width: 75%;
+}
+
+.row2 button {
+  width: 25%;
+  color: coral;
+  background-color: aquamarine;
+  border-radius: 15px;
+  text-align: center;
+  margin: 0 10px;
+}
