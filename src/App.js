@@ -13,11 +13,15 @@ import ParticlesBg from 'particles-bg'
 function App() {
   const [userSignedIn, setUserSignedIn] = useState(false)
   const [userIntention, setUserIntention] = useState("signin")
+  const login = (log, user) => {
+    setUserSignedIn(log)
+    setUserIntention(user)
+  }
   return (
     <div className='App'>
       <div className='headerContainer'>
         <Logo />
-        <Navbar userSignedIn={userSignedIn} />
+        <Navbar userSignedIn={userSignedIn} login={login} />
       </div>
       {
         userSignedIn
@@ -28,8 +32,8 @@ function App() {
           </>
           : <>
             {userIntention === "signin"
-              ? <SignIn />
-              : <Register />
+              ? <SignIn login={login} />
+              : <Register login={login} />
             }
           </>
       }
