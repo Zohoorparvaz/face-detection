@@ -13,3 +13,131 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+button {
+  width: 100px;
+  color: coral;
+  background-color: aquamarine;
+  border-radius: 15px;
+  text-align: center;
+  justify-self: center;
+  margin-top: 5px;
+}
+/* Logo  */
+/* ------------------------------------------------------------ */
+.tiltContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.tiltContainer img {
+  height: 125px;
+  width: 125px;
+  margin-left: 50px;
+}
+
+/* NavBar  */
+/* ------------------------------------------------------------ */
+.navContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.navContainer p {
+  color: coral;
+  margin: 20px 100px 0 0;
+  padding: 10px;
+  background-color: aquamarine;
+  border-radius: 15px;
+  height: 1.2em;
+  text-align: center;
+}
+
+/* Rank  */
+/* ------------------------------------------------------------ */
+.rankContainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
+  font-family: monospace;
+  font-size: 2em;
+  font-weight: 400;
+}
+
+.rankContainer p {
+  text-align: center;
+}
+
+.submits {
+  margin-top: 50px;
+}
+
+.rank {
+  margin-top: 0;
+}
+
+/* Submit image link form  */
+/* ------------------------------------------------------------ */
+.submitFormContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50vw;
+  text-align: center;
+  margin-left: 25%;
+  justify-content: center;
+}
+
+.row1,
+.row2 {
+  display: flex;
+  width: 100%;
+}
+
+.row1 p {
+  width: 100%;
+}
+
+.row2 input {
+  width: 75%;
+}
+
+.row2 button {
+  width: 25%;
+  color: coral;
+  background-color: aquamarine;
+  border-radius: 15px;
+  text-align: center;
+  margin: 0 10px;
+}
+
+/* Image box  */
+/* ------------------------------------------------------------ */
+.imgContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.imgBox {
+  position: absolute;
+  width: 500px;
+  height: auto;
+}
+
+/* Register  */
+/* ------------------------------------------------------------ */
+.regContainer {
+  margin: auto;
+  padding: 1em 0;
+  margin-top: 100px;
+  display: grid;
+  width: 20vw;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(4 100px);
+  justify-content: center;
+  border: 2px solid #ccffdd;
+  border-radius: 2em;
+  box-shadow: 3px 3px 0.8em coral, -1em 0 0.6em aquamarine;
+  grid-auto-columns: 50px;
+}

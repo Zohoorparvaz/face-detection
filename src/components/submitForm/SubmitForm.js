@@ -1,5 +1,4 @@
 import React from "react";
-import "./submitForm.css"
 
 const SubmitForm = () => {
   return (

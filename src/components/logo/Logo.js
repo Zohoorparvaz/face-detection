@@ -1,6 +1,5 @@
 import React from "react";
 import Tilt from 'react-parallax-tilt';
-import "./logo.css"
 import logo from "./logo.png"
 
 const Logo = () => {
