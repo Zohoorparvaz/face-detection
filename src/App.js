@@ -31,6 +31,7 @@ function App() {
   const [userSignedIn, setUserSignedIn] = useState(false)
   const [userIntention, setUserIntention] = useState("signin")
   const [userInput, setUserInput] = useState("")
+  const [faceBox, setFaceBox] = useState({})
 
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -62,10 +63,6 @@ function App() {
     body: raw
   };
 
-  // NOTE: MODEL_VERSION_ID is optional, you can also call prediction with the MODEL_ID only
-  // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
-  // this will default to the latest version_id
-
 
   const login = (log, user) => {
     setUserSignedIn(log)
@@ -76,16 +73,31 @@ function App() {
     setUserInput(e.target.value)
   }
 
-  const onSubmit = () => {
-    console.log(userInput);
-
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-
+  const findFaceNodes = (data) => {
+    const nodes = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const photo = document.getElementById("face");
+    const width = photo.width;
+    const height = photo.height;
+    const calculatedBox =
+    {
+      bottomSide: nodes.bottom_row * height,
+      leftSide: nodes.left_col * width,
+      rightSide: nodes.right_col * width,
+      topSide: nodes.top_row * height
+    };
+    setFaceBox(calculatedBox)
   }
 
+
+  const onSubmit = () => {
+    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        findFaceNodes(result)
+      }
+      )
+      .catch(error => console.log('error', error));
+  }
 
   return (
     <div className='App'>
@@ -97,7 +109,7 @@ function App() {
         userSignedIn
           ? <>
             <Rank />
-            <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} />
+            <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} faceBox={faceBox} />
             <ImageBox imageURL={userInput} />
           </>
           : <>
