@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-img {
+.tiltContainer img {
   height: 125px;
   width: 125px;
   margin-left: 50px;
