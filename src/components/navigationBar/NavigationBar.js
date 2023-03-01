@@ -1,9 +1,12 @@
 import React from "react";
 
-const NavigationBar = () => {
+const NavigationBar = ({ userSignedIn }) => {
+  const signout = <p>Sign out</p>;
+  const regsignin = <div style={{ display: "flex" }}><p>Sign in</p> <p>Register</p></div>
+
   return (
     <div className="navContainer">
-      <p>Sign out</p>
+      {userSignedIn ? signout : regsignin}
     </div>
   )
 }

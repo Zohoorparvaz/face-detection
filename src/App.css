@@ -127,9 +127,10 @@ button {
   height: auto;
 }
 
-/* Register  */
+/* Register  and sign in*/
 /* ------------------------------------------------------------ */
-.regContainer {
+.regContainer,
+.signInContainer {
   margin: auto;
   padding: 1em 0;
   margin-top: 100px;

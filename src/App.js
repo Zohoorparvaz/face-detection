@@ -1,3 +1,4 @@
+import React, { useState } from "react"
 import Navbar from "./components/navigationBar/NavigationBar"
 import Logo from "./components/logo/Logo"
 import Rank from "./components/rank/Rank"
@@ -10,11 +11,12 @@ import ParticlesBg from 'particles-bg'
 
 
 function App() {
+  const [userSignedIn, setUserSignedIn] = useState(false)
   return (
     <div className='App'>
       <div className='headerContainer'>
         <Logo />
-        <Navbar />
+        <Navbar userSignedIn={userSignedIn} />
       </div>
       <Rank />
       <SubmitForm />
@@ -22,7 +24,7 @@ function App() {
       <SignIn />
       <Register />
       {/* Replace type with these to change BG 
-      "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square" "tadpole" "fountain" "random" "custom"*/}
+      "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square" "tadpole" "fountain" "random" "custom" */}
       <ParticlesBg color="#ffffff" num={500} type="cobweb" bg={true} />
     </div>
   );
