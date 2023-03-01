@@ -12,17 +12,29 @@ import ParticlesBg from 'particles-bg'
 
 function App() {
   const [userSignedIn, setUserSignedIn] = useState(false)
+  const [userIntention, setUserIntention] = useState("signin")
   return (
     <div className='App'>
       <div className='headerContainer'>
         <Logo />
         <Navbar userSignedIn={userSignedIn} />
       </div>
-      <Rank />
-      <SubmitForm />
-      <ImageBox />
-      <SignIn />
-      <Register />
+      {
+        userSignedIn
+          ? <>
+            <Rank />
+            <SubmitForm />
+            <ImageBox />
+          </>
+          : <>
+            {userIntention === "signin"
+              ? <SignIn />
+              : <Register />
+            }
+          </>
+      }
+
+
       {/* Replace type with these to change BG 
       "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square" "tadpole" "fountain" "random" "custom" */}
       <ParticlesBg color="#ffffff" num={500} type="cobweb" bg={true} />
