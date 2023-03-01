@@ -7,7 +7,7 @@ const SignIn = ({ login }) => {
       <input type="text" id="username" name="username" minLength="4" />
       <label htmlFor="password">Password</label>
       <input type="text" id="password" name="password" minLength="4" />
-      <button type="submit" onClick={() => login(true)}>Sign In</button>
+      <button onClick={() => login(true)}>Sign In</button>
     </div>
   )
 }

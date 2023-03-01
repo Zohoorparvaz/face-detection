@@ -13,10 +13,21 @@ import ParticlesBg from 'particles-bg'
 function App() {
   const [userSignedIn, setUserSignedIn] = useState(false)
   const [userIntention, setUserIntention] = useState("signin")
+  const [userInput, setUserInput] = useState("")
   const login = (log, user) => {
     setUserSignedIn(log)
     setUserIntention(user)
   }
+
+  const onInputChange = (e) => {
+    setUserInput(e.target.value)
+  }
+
+  const onSubmit = () => {
+    console.log(userInput);
+  }
+
+
   return (
     <div className='App'>
       <div className='headerContainer'>
@@ -27,8 +38,8 @@ function App() {
         userSignedIn
           ? <>
             <Rank />
-            <SubmitForm />
-            <ImageBox />
+            <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} />
+            <ImageBox imageURL={userInput} />
           </>
           : <>
             {userIntention === "signin"

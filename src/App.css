@@ -123,8 +123,9 @@ button {
 
 .imgBox {
   position: absolute;
-  width: 500px;
-  height: auto;
+  max-width: 90vw;
+  width: auto;
+  height: 45vh;
 }
 
 /* Register  and sign in*/

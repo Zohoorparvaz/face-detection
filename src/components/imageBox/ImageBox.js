@@ -1,9 +1,9 @@
 import React from "react";
 
-const ImageBox = () => {
+const ImageBox = ({ imageURL }) => {
   return (
     <div className="imgContainer">
-      <img className="imgBox" src="#" alt="box" />
+      <img className="imgBox" src={imageURL} alt="box" />
     </div>
   )
 }
