@@ -119,27 +119,42 @@ button {
 /* Image box  */
 /* ------------------------------------------------------------ */
 .imgContainer {
-  /* display: flex; */
+  /*  */
+  display: flex;
+  /*  */
   position: absolute;
   justify-content: center;
   margin-top: 1em;
   text-align: center;
   font-family: monospace;
+  top: 50%;
+  left: 40%;
 }
 
 .imgBox {
   max-width: 90vw;
   width: auto;
   height: 45vh;
+  /*  */
+  justify-content: center;
+  /*  */
 }
 
 .bounding-box {
-  /* display: flex; */
+  /*  */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /*  */
   position: absolute;
   box-shadow: 0 0 0 3px #149df2 inset;
-  /* flex-wrap: wrap;
-  justify-content: center; */
   cursor: pointer;
+}
+
+.center {
+  display: inline;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 /* Register  and sign in*/
