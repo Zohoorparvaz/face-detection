@@ -119,8 +119,8 @@ button {
 /* Image box  */
 /* ------------------------------------------------------------ */
 .imgContainer {
-  display: flex;
-  position: relative;
+  /* display: flex; */
+  position: absolute;
   justify-content: center;
   margin-top: 1em;
   text-align: center;
@@ -134,11 +134,11 @@ button {
 }
 
 .bounding-box {
-  display: flex;
+  /* display: flex; */
   position: absolute;
   box-shadow: 0 0 0 3px #149df2 inset;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* flex-wrap: wrap;
+  justify-content: center; */
   cursor: pointer;
 }
 
