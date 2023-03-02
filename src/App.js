@@ -76,26 +76,29 @@ function App() {
   const findFaceNodes = (data) => {
     const nodes = data.outputs[0].data.regions[0].region_info.bounding_box;
     const photo = document.getElementById("face");
-    const width = photo.width;
-    const height = photo.height;
+    const width = Number(photo.width);
+    const height = Number(photo.height);
+    const aspectRatio = width / height;
+    const availScreenH = window.screen.availHeight / 2
+    const availScreenW = availScreenH * aspectRatio;
     const calculatedBox =
     {
-      bottomSide: nodes.bottom_row * height,
-      leftSide: nodes.left_col * width,
-      rightSide: nodes.right_col * width,
-      topSide: nodes.top_row * height
+      leftCol: nodes.left_col * width,
+      topRow: nodes.top_row * height,
+      rightCol: width - (nodes.right_col * width),
+      bottomRow: height - (nodes.bottom_row * height)
     };
+    //    inset: 79.9315px  247.886px 371.637px 22.4526px
+    //    inset: 579px      522px     79px      522px
+
+    console.log("nodes", nodes, "calculatedBox", calculatedBox, "height", height, "width", width, "availScreenH", availScreenH, "availScreenW", availScreenW,);
     setFaceBox(calculatedBox)
   }
-
 
   const onSubmit = () => {
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
       .then(response => response.json())
-      .then(result => {
-        findFaceNodes(result)
-      }
-      )
+      .then(result => { findFaceNodes(result) })
       .catch(error => console.log('error', error));
   }
 
@@ -109,8 +112,8 @@ function App() {
         userSignedIn
           ? <>
             <Rank />
-            <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} faceBox={faceBox} />
-            <ImageBox imageURL={userInput} />
+            <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} />
+            <ImageBox imageURL={userInput} box={faceBox} />
           </>
           : <>
             {userIntention === "signin"

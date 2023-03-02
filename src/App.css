@@ -1,6 +1,9 @@
 /*  btn BG  :
     btn text:
 */
+.App {
+  text-align: center;
+}
 
 body {
   margin: 0;
@@ -22,6 +25,7 @@ button {
   text-align: center;
   justify-self: center;
   margin-top: 5px;
+  cursor: pointer;
 }
 /* Logo  */
 /* ------------------------------------------------------------ */
@@ -116,23 +120,23 @@ button {
 /* ------------------------------------------------------------ */
 .imgContainer {
   display: flex;
-  justify-content: space-around;
+  position: relative;
+  justify-content: center;
   margin-top: 1em;
   text-align: center;
   font-family: monospace;
 }
 
 .imgBox {
-  position: absolute;
   max-width: 90vw;
   width: auto;
   height: 45vh;
 }
 
 .bounding-box {
-  position: absolute;
-  box-shadow: 0 0 0 3px blue inset;
   display: flex;
+  position: absolute;
+  box-shadow: 0 0 0 3px #149df2 inset;
   flex-wrap: wrap;
   justify-content: center;
   cursor: pointer;
