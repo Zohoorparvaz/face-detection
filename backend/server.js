@@ -4,25 +4,37 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const user = [
-  {
-    name: "Alireza",
-    password: "123",
-    email: "alireza@gmail.com",
-    entries: 0,
-    joined: new Date(),
-  },
-  {
-    name: "Maryam",
-    password: "124",
-    email: "maryam@gmail.com",
-    entries: 0,
-    joined: new Date()
-  }
-]
+app.use(express.json())
+
+const database = {
+  users: [
+    {
+      id: "1",
+      name: "Alireza",
+      password: "hello",
+      email: "alireza@gmail.com",
+      entries: 0,
+      joined: new Date(),
+    },
+    {
+      id: "2",
+      name: "Maryam",
+      password: "helloback",
+      email: "maryam@gmail.com",
+      entries: 0,
+      joined: new Date()
+    }
+  ]
+}
 
 app.get("/", (req, res) => {
-  res.send("getting home page");
+  res.json('Great! It works')
+})
+
+app.post("/signin", (req, res) => {
+  if (req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
+    res.json(`Welcome ${database.users[0].name}`)
+  } else { res.status(404).json('User not found! Try again') }
 })
 
 app.listen(PORT, () => {
