@@ -129,7 +129,7 @@ function App() {
     <div className='App' >
       <div className='headerContainer'>
         <Logo />
-        <Navbar logout={logout} userSignedIn={userSignedIn} login={login} user={user} setIntent={setIntent} />
+        <Navbar logout={logout} userSignedIn={userSignedIn} setIntent={setIntent} />
       </div>
       {
         userSignedIn
