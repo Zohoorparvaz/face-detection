@@ -33,6 +33,7 @@ function App() {
   const [userInput, setUserInput] = useState("")
   const [faceBox, setFaceBox] = useState({})
   const [user, setUser] = useState({})
+  const [entries, SetEntries] = useState(0)
 
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +64,24 @@ function App() {
     },
     body: raw
   };
+
+  const findFaceNodes = (data) => {
+    const nodes = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const photo = document.getElementById("face");
+    const width = Number(photo.width);
+    const height = Number(photo.height);
+    const calculatedBox =
+    {
+      leftCol: nodes.left_col * width,
+      topRow: nodes.top_row * height,
+      rightCol: width - (nodes.right_col * width),
+      bottomRow: height - (nodes.bottom_row * height)
+    };
+    //    inset: 79.9315px  247.886px 371.637px 22.4526px
+    //    inset: 579px      522px     79px      522px
+
+    setFaceBox(calculatedBox)
+  }
 
   const login = (email, pass) => {
     fetch("http://localhost:8081/signin", {
@@ -127,28 +146,11 @@ function App() {
       })
   }
 
-  const findFaceNodes = (data) => {
-    const nodes = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const photo = document.getElementById("face");
-    const width = Number(photo.width);
-    const height = Number(photo.height);
-    const calculatedBox =
-    {
-      leftCol: nodes.left_col * width,
-      topRow: nodes.top_row * height,
-      rightCol: width - (nodes.right_col * width),
-      bottomRow: height - (nodes.bottom_row * height)
-    };
-    //    inset: 79.9315px  247.886px 371.637px 22.4526px
-    //    inset: 579px      522px     79px      522px
-
-    setFaceBox(calculatedBox)
-  }
-
   const onSubmit = () => {
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
       .then(response => response.json())
       .then(result => { findFaceNodes(result) })
+      .then(user.entries++)
       .catch(error => console.log('error', error));
   }
 
