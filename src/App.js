@@ -102,9 +102,6 @@ function App() {
     const photo = document.getElementById("face");
     const width = Number(photo.width);
     const height = Number(photo.height);
-    const aspectRatio = width / height;
-    const availScreenH = window.screen.availHeight / 2
-    const availScreenW = availScreenH * aspectRatio;
     const calculatedBox =
     {
       leftCol: nodes.left_col * width,
@@ -134,7 +131,7 @@ function App() {
       {
         userSignedIn
           ? <>
-            <Rank />
+            <Rank user={user} />
             <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} />
             <ImageBox imageURL={userInput} box={faceBox} />
           </>
