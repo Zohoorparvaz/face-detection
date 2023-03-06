@@ -97,6 +97,36 @@ function App() {
     setUserInput(e.target.value)
   }
 
+  const register = async (name, email, pass) => {
+    let found = false;
+    await fetch("http://localhost:8081/")
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(user => {
+          if (user.email === email) {
+            found = true
+          }
+        });
+        if (found) {
+          console.log("User already in database")
+        } else {
+          fetch("http://localhost:8081/register", {
+            method: 'POST',
+            headers: {
+              "Content-Type": "Application/Json"
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              password: pass
+            })
+          })
+            .then(res => res.json())
+            .then(data => console.log(data))
+        }
+      })
+  }
+
   const findFaceNodes = (data) => {
     const nodes = data.outputs[0].data.regions[0].region_info.bounding_box;
     const photo = document.getElementById("face");
@@ -138,7 +168,7 @@ function App() {
           : <>
             {userIntention === "signin"
               ? <SignIn login={login} />
-              : <Register login={login} />
+              : <Register register={register} />
             }
           </>
       }
