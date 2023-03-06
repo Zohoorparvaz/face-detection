@@ -33,7 +33,6 @@ function App() {
   const [userInput, setUserInput] = useState("")
   const [faceBox, setFaceBox] = useState({})
 
-
   ///////////////////////////////////////////////////////////////////////////////////
   // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
   ///////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +102,7 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div className='App' >
       <div className='headerContainer'>
         <Logo />
         <Navbar userSignedIn={userSignedIn} login={login} />
@@ -122,8 +121,6 @@ function App() {
             }
           </>
       }
-
-
       {/* Replace type with these to change BG 
       "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square" "tadpole" "fountain" "random" "custom" */}
       <ParticlesBg color="#ffffff" num={500} type="cobweb" bg={true} />
@@ -132,3 +129,5 @@ function App() {
 }
 
 export default App;
+
+

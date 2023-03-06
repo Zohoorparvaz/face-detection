@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
+const bcrypt = require("bcrypt-nodejs")
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
+app.use(cors());
 app.use(express.json())
+const PORT = process.env.PORT || 3000;
 
 const database = {
   users: [
@@ -39,6 +41,9 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { email, name, password } = req.body;
+  bcrypt.hash(password, null, null, function (err, hash) {
+    console.log(hash);
+  });
   database.users.push(
     {
       id: "3",
@@ -80,6 +85,16 @@ app.put("/image", (req, res) => {
     res.status(404).json("User not found!")
   }
 })
+
+
+
+// // Load hash from your password DB.
+// bcrypt.compare("bacon", hash, function (err, res) {
+//   // res == true
+// });
+// bcrypt.compare("veggies", hash, function (err, res) {
+//   // res = false
+// });
 
 app.listen(PORT, () => {
   console.log(`Server has started listening to port ${PORT}`);
