@@ -35,9 +35,10 @@ app.get("/", (req, res) => {
 
 app.post("/signin", (req, res) => {
   if (req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
-    res.json(`Welcome ${database.users[0].name}`)
+    res.json(database.users[0])
   } else { res.status(404).json('User not found! Try again') }
 })
+
 
 app.post("/register", (req, res) => {
   const { email, name, password } = req.body;

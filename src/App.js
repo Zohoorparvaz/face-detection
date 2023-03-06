@@ -32,6 +32,8 @@ function App() {
   const [userIntention, setUserIntention] = useState("signin")
   const [userInput, setUserInput] = useState("")
   const [faceBox, setFaceBox] = useState({})
+  const [user, setUser] = useState({})
+
 
   ///////////////////////////////////////////////////////////////////////////////////
   // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
@@ -62,10 +64,33 @@ function App() {
     body: raw
   };
 
+  const login = (email, pass) => {
+    fetch("http://localhost:8081/signin", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "Application/Json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: pass
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.name === "Alireza") {
+          setUserSignedIn(true)
+          setUser(data);
+        }
+      })
+  }
 
-  const login = (log, user) => {
-    setUserSignedIn(log)
-    setUserIntention(user)
+  const logout = () => {
+    setUserSignedIn(false)
+  }
+
+  const setIntent = (int) => {
+    logout();
+    setUserIntention(int)
   }
 
   const onInputChange = (e) => {
@@ -90,7 +115,6 @@ function App() {
     //    inset: 79.9315px  247.886px 371.637px 22.4526px
     //    inset: 579px      522px     79px      522px
 
-    console.log("nodes", nodes, "calculatedBox", calculatedBox, "height", height, "width", width, "availScreenH", availScreenH, "availScreenW", availScreenW,);
     setFaceBox(calculatedBox)
   }
 
@@ -105,7 +129,7 @@ function App() {
     <div className='App' >
       <div className='headerContainer'>
         <Logo />
-        <Navbar userSignedIn={userSignedIn} login={login} />
+        <Navbar logout={logout} userSignedIn={userSignedIn} login={login} user={user} setIntent={setIntent} />
       </div>
       {
         userSignedIn
