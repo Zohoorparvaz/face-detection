@@ -48,6 +48,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/signin", (req, res) => {
+
   if (req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
     res.json(database.users[0])
   } else { res.status(404).json('User not found! Try again') }
@@ -56,7 +57,6 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
-
   db('users').returning('*').insert({
     name: name,
     email: email,
@@ -66,42 +66,25 @@ app.post("/register", (req, res) => {
 
 app.get("/profile/:id", (req, res) => {
   const { id } = req.params;
-  let found = false;
-  database.users.forEach(user => {
-    if (user.id === id) {
-      found = true;
-      res.json(user)
+  db('users').select('*').where({
+    id: id
+  }).then(user => {
+    if (user.length) {
+      res.json(user[0])
+    } else {
+      res.status(400).json("User not found!")
     }
   })
-  if (found === false) {
-    res.status(404).json("User not found!")
-  }
 })
 
 app.put("/image", (req, res) => {
   const { id } = req.body;
-  let found = false;
-  database.users.forEach(user => {
-    if (user.id === id) {
-      found = true;
-      user.entries++;
-      res.json(user.entries)
-    }
-  })
-  if (found === false) {
-    res.status(404).json("User not found!")
-  }
+  db('users').where('id', '=', id)
+    .increment('entries', 1)
+    .returning('entries')
+    .then(entries => res.json(entries[0]))
+    .catch(err => res.status(400).json("Unable to get the number of entries"))
 })
-
-
-
-// // Load hash from your password DB.
-// bcrypt.compare("bacon", hash, function (err, res) {
-//   // res == true
-// });
-// bcrypt.compare("veggies", hash, function (err, res) {
-//   // res = false
-// });
 
 app.listen(PORT, () => {
   console.log(`Server has started listening to port ${PORT}`);

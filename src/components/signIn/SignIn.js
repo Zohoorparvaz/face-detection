@@ -15,7 +15,7 @@ const SignIn = ({ login }) => {
   return (
     <div className="signInContainer">
       <h3>Sign In</h3>
-      <label htmlFor="username">Username</label>
+      <label htmlFor="username">Email</label>
       <input type="text" id="username" name="username" minLength="4" onChange={changeEmail} />
       <label htmlFor="password">Password</label>
       <input type="password" id="password" name="password" minLength="4" onChange={changePass} />

@@ -151,7 +151,10 @@ function App() {
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
       .then(response => response.json())
       .then(result => { findFaceNodes(result) })
-      .then(user.entries++)
+      .then(
+        fetch("http://localhost:8081/image")
+          .then(res => SetEntries(res))
+      )
       .catch(error => console.log('error', error));
   }
 

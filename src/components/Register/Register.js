@@ -21,7 +21,7 @@ const Register = ({ register }) => {
       <h3>Register</h3>
       <label htmlFor="name">Name</label>
       <input type="text" id="name" name="name" onChange={changeName} />
-      <label htmlFor="username">Username</label>
+      <label htmlFor="username">Email</label>
       <input type="text" id="username" name="username" minLength="4" onChange={changeEmail} />
       <label htmlFor="password">Password</label>
       <input type="password" id="password" name="password" minLength="4" onChange={changePass} />
