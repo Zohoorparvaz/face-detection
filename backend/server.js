@@ -1,12 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require("bcrypt-nodejs")
+const knex = require('knex');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json())
 const PORT = process.env.PORT || 3000;
+
+const db = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    port: 5432,
+    user: '',
+    password: '',
+    database: 'face-detection'
+  }
+});
 
 const database = {
   users: [
@@ -41,21 +53,13 @@ app.post("/signin", (req, res) => {
 
 
 app.post("/register", (req, res) => {
-  const { email, name, password } = req.body;
-  bcrypt.hash(password, null, null, function (err, hash) {
-    console.log(hash);
-  });
-  database.users.push(
-    {
-      id: "3",
-      name: name,
-      password: password,
-      email: email,
-      entries: 0,
-      joined: new Date(),
-    }
-  );
-  res.json(database.users[database.users.length - 1])
+  const { name, email, password } = req.body;
+
+  db('users').returning('*').insert({
+    name: name,
+    email: email,
+    joined: new Date()
+  }).then(response => res.json(response))
 })
 
 app.get("/profile/:id", (req, res) => {
