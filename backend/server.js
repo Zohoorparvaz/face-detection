@@ -42,7 +42,9 @@ const database = {
 }
 
 app.get("/", (req, res) => {
-  res.json(database.users)
+  db('users').select('*').then(users => {
+    res.json(users)
+  })
 })
 
 app.post("/signin", (req, res) => {
@@ -59,7 +61,7 @@ app.post("/register", (req, res) => {
     name: name,
     email: email,
     joined: new Date()
-  }).then(response => res.json(response))
+  }).then(user => res.json(user))
 })
 
 app.get("/profile/:id", (req, res) => {
