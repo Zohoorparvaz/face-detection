@@ -48,20 +48,42 @@ app.get("/", (req, res) => {
 })
 
 app.post("/signin", (req, res) => {
-
-  if (req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
-    res.json(database.users[0])
-  } else { res.status(404).json('User not found! Try again') }
+  db('login').select('email', 'hash').where("email", "=", req.body.email)
+    .then(data => {
+      bcrypt.compare(req.body.password, data[0].hash, function (error, response) {
+        if (response) {
+          db('users').select('*').where('email', '=', req.body.email)
+            .then(user => res.json(user[0]))
+        }
+      })
+    })
 })
+
 
 
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
-  db('users').returning('*').insert({
-    name: name,
-    email: email,
-    joined: new Date()
-  }).then(user => res.json(user))
+
+  bcrypt.hash(password, null, null, function (err, hash) {
+    db.transaction(trx => {
+      trx.insert({
+        hash: hash,
+        email: email
+      })
+        .into('login')
+        .returning('email')
+        .then(loginEmail => {
+          return trx('users').returning('*').insert({
+            name: name,
+            email: loginEmail[0].email,
+            joined: new Date()
+          }).then(user => res.json(user))
+        })
+        .then(trx.commit)
+        .catch(trx.rollback)
+    })
+      .catch(err => res.status(400).json("Unable to register"))
+  });
 })
 
 app.get("/profile/:id", (req, res) => {

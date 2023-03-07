@@ -96,9 +96,12 @@ function App() {
     })
       .then(res => res.json())
       .then(data => {
-        if (data.name === "Alireza") {
+        if (data.email === email) {
           setUserSignedIn(true)
           setUser(data);
+          SetEntries(data.entries)
+        } else {
+          console.log("Wrong credentials")
         }
       })
   }
