@@ -34,6 +34,7 @@ function App() {
   const [faceBox, setFaceBox] = useState({})
   const [user, setUser] = useState({})
   const [entries, SetEntries] = useState(0)
+  const [rank, setRank] = useState(0)
 
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -96,10 +97,13 @@ function App() {
     })
       .then(res => res.json())
       .then(data => {
-        if (data.email === email) {
-          setUserSignedIn(true)
-          setUser(data);
-          SetEntries(data.entries)
+        console.log(data.user);
+        if (data.user.email === email) {
+          setUserSignedIn(true);
+          setRank(data.rank)
+          setUser(data.user);
+          console.log(user);
+          SetEntries(data.user.entries)
         } else {
           console.log("Wrong credentials")
         }
@@ -170,7 +174,7 @@ function App() {
       {
         userSignedIn
           ? <>
-            <Rank user={user} />
+            <Rank entries={entries} rank={rank} />
             <SubmitForm onInputChange={onInputChange} onSubmit={onSubmit} />
             <ImageBox imageURL={userInput} box={faceBox} />
           </>
