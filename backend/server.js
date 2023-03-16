@@ -20,6 +20,15 @@ const db = knex({
   }
 });
 
+const getRank = (email) => {
+  return db('users').select('*').orderBy('entries', 'desc')
+    .then(rankedUsers => {
+      const user = rankedUsers.find(user => user.email === email);
+      const rank = rankedUsers.findIndex(u => u.id === user.id) + 1;
+      return rank;
+    });
+}
+
 const database = {
   users: [
     {
@@ -47,13 +56,17 @@ app.get("/", (req, res) => {
   })
 })
 
+
+
 app.post("/signin", (req, res) => {
   db('login').select('email', 'hash').where("email", "=", req.body.email)
     .then(data => {
       bcrypt.compare(req.body.password, data[0].hash, function (error, response) {
         if (response) {
-          db('users').select('*').where('email', '=', req.body.email)
-            .then(user => res.json(user[0]))
+          getRank(req.body.email).then(rank => {
+            db('users').select('*').where('email', '=', req.body.email)
+              .then(user => res.json({ user: user[0], rank: rank }))
+          })
         }
       })
     })
