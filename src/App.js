@@ -23,7 +23,7 @@ const USER_ID = 'a363z';
 const APP_ID = 'face-recognition-zoho';
 // Change these to whatever model and image URL you want to use
 const MODEL_ID = 'face-detection';
-const MODEL_VERSION_ID = '45fb9a671625463fa646c3523a3087d5';
+const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
 
 
 
@@ -159,7 +159,15 @@ function App() {
       .then(response => response.json())
       .then(result => { findFaceNodes(result) })
       .then(
-        fetch("http://localhost:8081/image")
+        fetch("http://localhost:8081/image"), {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "Application/Json"
+          },
+          body: JSON.stringify({
+            id: user.id,
+          })
+        }
           .then(res => SetEntries(res))
       )
       .catch(error => console.log('error', error));
