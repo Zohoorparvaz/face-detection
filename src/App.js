@@ -19,8 +19,8 @@ import ParticlesBg from 'particles-bg'
 const PAT = '8da79a41225749c8a701716f477a2391';
 // Specify the correct user_id/app_id pairings
 // Since you're making inferences outside your app's scope
-const USER_ID = 'a363z';
-const APP_ID = 'face-recognition-zoho';
+const USER_ID = 'clarifai';
+const APP_ID = 'main';
 // Change these to whatever model and image URL you want to use
 const MODEL_ID = 'face-detection';
 const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';
@@ -158,18 +158,18 @@ function App() {
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
       .then(response => response.json())
       .then(result => { findFaceNodes(result) })
-      .then(
-        fetch("http://localhost:8081/image"), {
-          method: 'PUT',
-          headers: {
-            "Content-Type": "Application/Json"
-          },
-          body: JSON.stringify({
-            id: user.id,
-          })
-        }
-          .then(res => SetEntries(res))
-      )
+      //     .then(
+      //       fetch("http://localhost:8081/image"), {
+      //         method: 'PUT',
+      //         headers: {
+      //           "Content-Type": "Application/Json"
+      //         },
+      //         body: JSON.stringify({
+      //           id: user.id,
+      //         })
+      //       }
+      //         .then(res => SetEntries(res))
+      //     )
       .catch(error => console.log('error', error));
   }
 

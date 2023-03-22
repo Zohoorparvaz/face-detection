@@ -56,8 +56,6 @@ app.get("/", (req, res) => {
   })
 })
 
-
-
 app.post("/signin", (req, res) => {
   db('login').select('email', 'hash').where("email", "=", req.body.email)
     .then(data => {
@@ -113,10 +111,11 @@ app.get("/profile/:id", (req, res) => {
 })
 
 app.put("/image", (req, res) => {
-  const { id } = req.body;
-  db('users').where('id', '=', id)
+  console.log("here");
+  db('users').select('*').where("id", "=", req.body)
     .increment('entries', 1)
     .returning('entries')
+    .then(console.log(entries))
     .then(entries => res.json(entries[0]))
     .catch(err => res.status(400).json("Unable to get the number of entries"))
 })
