@@ -157,19 +157,20 @@ function App() {
   const onSubmit = () => {
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
       .then(response => response.json())
-      .then(result => { findFaceNodes(result) })
-      //     .then(
-      //       fetch("http://localhost:8081/image"), {
-      //         method: 'PUT',
-      //         headers: {
-      //           "Content-Type": "Application/Json"
-      //         },
-      //         body: JSON.stringify({
-      //           id: user.id,
-      //         })
-      //       }
-      //         .then(res => SetEntries(res))
-      //     )
+      .then(result => {
+        findFaceNodes(result);
+        fetch("http://localhost:8081/image", {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "Application/Json"
+          },
+          body: JSON.stringify({
+            id: user.id,
+          })
+        })
+          .then(res => res.json())
+          .then(data => SetEntries(data[0].entries))
+      })
       .catch(error => console.log('error', error));
   }
 

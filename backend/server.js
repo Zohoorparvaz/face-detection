@@ -111,13 +111,16 @@ app.get("/profile/:id", (req, res) => {
 })
 
 app.put("/image", (req, res) => {
-  console.log("here");
-  db('users').select('*').where("id", "=", req.body)
-    .increment('entries', 1)
+  const { id } = req.body;
+  db('users').select('*').where({
+    id, id
+  })
+    .increment({
+      entries: 1
+    })
     .returning('entries')
-    .then(console.log(entries))
-    .then(entries => res.json(entries[0]))
-    .catch(err => res.status(400).json("Unable to get the number of entries"))
+    .then(entries => res.json(entries))
+    .catch(err => res.status(400).json("Unable to get the number of entries", err))
 })
 
 app.listen(PORT, () => {
