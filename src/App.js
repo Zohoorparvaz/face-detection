@@ -78,8 +78,6 @@ function App() {
       rightCol: width - (nodes.right_col * width),
       bottomRow: height - (nodes.bottom_row * height)
     };
-    //    inset: 79.9315px  247.886px 371.637px 22.4526px
-    //    inset: 579px      522px     79px      522px
 
     setFaceBox(calculatedBox)
   }
@@ -97,12 +95,10 @@ function App() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.user);
         if (data.user.email === email) {
           setUserSignedIn(true);
           setRank(data.rank)
           setUser(data.user);
-          console.log(user);
           SetEntries(data.user.entries)
         } else {
           console.log("Wrong credentials")
@@ -112,6 +108,7 @@ function App() {
 
   const logout = () => {
     setUserSignedIn(false)
+    setUserInput("")
   }
 
   const setIntent = (int) => {
@@ -121,6 +118,7 @@ function App() {
 
   const onInputChange = (e) => {
     setUserInput(e.target.value)
+    setFaceBox({})
   }
 
   const register = async (name, email, pass) => {
@@ -148,7 +146,6 @@ function App() {
             })
           })
             .then(res => res.json())
-            .then(data => console.log(data))
             .then(setUserIntention("signin"))
         }
       })
@@ -165,11 +162,14 @@ function App() {
             "Content-Type": "Application/Json"
           },
           body: JSON.stringify({
-            id: user.id,
+            user: user,
           })
         })
           .then(res => res.json())
-          .then(data => SetEntries(data[0].entries))
+          .then(data => {
+            SetEntries(data.entries[0].entries);
+            setRank(data.rank);
+          })
       })
       .catch(error => console.log('error', error));
   }

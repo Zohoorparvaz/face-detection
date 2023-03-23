@@ -111,15 +111,17 @@ app.get("/profile/:id", (req, res) => {
 })
 
 app.put("/image", (req, res) => {
-  const { id } = req.body;
+  const { id, email } = req.body.user;
   db('users').select('*').where({
-    id, id
+    id: id
   })
     .increment({
       entries: 1
     })
     .returning('entries')
-    .then(entries => res.json(entries))
+    .then(async entries => {
+      res.json({ entries: entries, rank: await getRank(email) })
+    })
     .catch(err => res.status(400).json("Unable to get the number of entries", err))
 })
 
