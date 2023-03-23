@@ -10,13 +10,14 @@ import "./App.css"
 import ParticlesBg from 'particles-bg'
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // In this section, we set the user authentication, user and app ID, model details, and the URL
 // of the image we want as an input. Change these strings to run your own example.
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Your PAT (Personal Access Token) can be found in the portal under Authentification
-const PAT = '8da79a41225749c8a701716f477a2391';
+const PAT = process.env.REACT_APP_PAT;
 // Specify the correct user_id/app_id pairings
 // Since you're making inferences outside your app's scope
 const USER_ID = 'clarifai';
