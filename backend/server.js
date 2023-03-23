@@ -29,27 +29,6 @@ const getRank = (email) => {
     });
 }
 
-const database = {
-  users: [
-    {
-      id: "1",
-      name: "Alireza",
-      password: "hello",
-      email: "alireza@gmail.com",
-      entries: 0,
-      joined: new Date(),
-    },
-    {
-      id: "2",
-      name: "Maryam",
-      password: "helloback",
-      email: "maryam@gmail.com",
-      entries: 0,
-      joined: new Date()
-    }
-  ]
-}
-
 app.get("/", (req, res) => {
   db('users').select('*').then(users => {
     res.json(users)
